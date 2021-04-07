@@ -8,12 +8,12 @@ var shownOption3 = document.getElementById('option-3');
 var shownOption4 = document.getElementById('option-4');
 
 var question1 = {
-	question: 'a',
-	CHOICE1: 'a',
-	CHOICE2: 'a',
-	CHOICE3: 'a',
-	CHOICE4: 'a',
-	CORRECTANSWER: '',
+	question: '1Q',
+	CHOICE1: '1a',
+	CHOICE2: '1b',
+	CHOICE3: '1c',
+	CHOICE4: '1d',
+	CORRECTANSWER: this.CHOICE1,
 };
 var question2 = {
 	question: 'b',
@@ -21,7 +21,7 @@ var question2 = {
 	CHOICE2: 'b',
 	CHOICE3: 'b',
 	CHOICE4: 'b',
-	CORRECTANSWER: '',
+	CORRECTANSWER: this.CHOICE2,
 };
 var question3 = {
 	question: 'c',
@@ -29,33 +29,67 @@ var question3 = {
 	CHOICE2: 'c',
 	CHOICE3: 'c',
 	CHOICE4: 'c',
-	CORRECTANSWER: '',
+	CORRECTANSWER: this.CHOICE3,
 };
 var question4 = {
-	question: 'd',
-	CHOICE1: 'd',
-	CHOICE2: 'd',
-	CHOICE3: 'd',
-	CHOICE4: 'd',
-	CORRECTANSWER: '',
+	question: '4Q',
+	CHOICE1: '4a',
+	CHOICE2: '4b',
+	CHOICE3: '4c',
+	CHOICE4: '4d',
+	CORRECTANSWER: '4d',
 };
+var currentQuestion = question4;
 
-function randomQuestionSelector() {
-	var whichQuestionToShow;
-}
+function randomQuestionSelector() {}
 
 function presentCurrentQuestion() {
-	//SHOW *whichQuestionToShow* is currently selected
-	//plug each randomQuestion object value into
-	/*  
+	shownQuestion.textContent = currentQuestion.question;
+	shownOption1.textContent = currentQuestion.CHOICE1;
+	shownOption2.textContent = currentQuestion.CHOICE2;
+	shownOption3.textContent = currentQuestion.CHOICE3;
+	shownOption4.textContent = currentQuestion.CHOICE4;
+}
+var currentChosenOption = 0;
 
-    shownQuestion
-    shownOption1
-    shownOption2
-    shownOption3
-    shownOption4
+function getCurrentChosenOption() {
+	shownOption1.addEventListener('click', function () {
+		console.log('you clicked on 1');
+		currentChosenOption = currentQuestion.CHOICE1;
+		console.log('currentChosenOption :>> ', currentChosenOption);
+		isCurrentAnswerCorrect();
+	});
+	shownOption2.addEventListener('click', function () {
+		console.log('you clicked on 2');
+		currentChosenOption = currentQuestion.CHOICE2;
+		console.log('currentChosenOption :>> ', currentChosenOption);
+		isCurrentAnswerCorrect();
+	});
+	shownOption3.addEventListener('click', function () {
+		console.log('you clicked on 3');
+		currentChosenOption = currentQuestion.CHOICE3;
+		console.log('currentChosenOption :>> ', currentChosenOption);
+		isCurrentAnswerCorrect();
+	});
+	shownOption4.addEventListener('click', function () {
+		console.log('you clicked on 4');
+		currentChosenOption = currentQuestion.CHOICE4;
+		console.log('currentChosenOption :>> ', currentChosenOption);
+		isCurrentAnswerCorrect();
+	});
+	return currentChosenOption;
+}
 
-*/
+function isCurrentAnswerCorrect() {
+	console.log(
+		'currentQuestion.CORRECTANSWER :>> ',
+		currentQuestion.CORRECTANSWER
+	);
+	if (currentChosenOption == currentQuestion.CORRECTANSWER) {
+		console.log('CORRECT ANSWER');
+	} else {
+		console.log('WRONG ANSWER');
+	}
 }
 
 /* find a way to make sure the question is answered before going to the next one */
@@ -79,3 +113,8 @@ function addHighScores() {
 	newHighScoreElement.textContent = prompt('enter initials');
 	highScoreListParent.appendChild(newHighScoreElement);
 }
+
+presentCurrentQuestion();
+getCurrentChosenOption();
+
+console.log('question4.CORRECTANSWER :>> ', question4.CORRECTANSWER);
