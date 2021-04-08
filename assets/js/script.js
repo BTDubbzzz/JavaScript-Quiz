@@ -6,9 +6,10 @@ var shownOption1 = document.getElementById('option-1');
 var shownOption2 = document.getElementById('option-2');
 var shownOption3 = document.getElementById('option-3');
 var shownOption4 = document.getElementById('option-4');
-
+var sec;
 var currentChosenOption = 0;
 var currentQuestionNumber = 0;
+var startButtonClicks = 0;
 
 var question1 = {
 	question: '1Q',
@@ -46,14 +47,17 @@ var question4 = {
 var questionsArray = [question1, question2, question3, question4];
 
 function nextQuestion() {
-	if (currentQuestionNumber < 3) {
+	if (sec < 0) {
+		endQuizText();
+	} else if (currentQuestionNumber < questionsArray.length - 1) {
 		currentQuestionNumber++;
 		QuizOrder(currentQuestionNumber);
+	} else {
+		endQuizText();
 	}
 }
 
 function QuizOrder(whichQuestion) {
-	console.log('currentQuestionNumber :>> ', currentQuestionNumber);
 	currentQuestion = questionsArray[whichQuestion];
 	presentCurrentQuestion();
 }
@@ -66,39 +70,69 @@ function presentCurrentQuestion() {
 	shownOption4.textContent = currentQuestion.CHOICE4;
 }
 
+function endQuizText() {
+	if (sec > 0) {
+		shownQuestion.textContent = 'Quiz is Over, enter your high score';
+		var newScore = sec;
+	} else if (sec < 0) {
+		shownQuestion.textContent =
+			'You did not complete the quiz in time. Please refresh to try again.';
+	}
+	shownOption1.textContent = '';
+	shownOption2.textContent = '';
+	shownOption3.textContent = '';
+	shownOption4.textContent = '';
+}
+
 function isCurrentAnswerCorrect() {
 	if (currentChosenOption === currentQuestion.CORRECTANSWER) {
 		console.log('CORRECT ANSWER');
 		return true;
 	} else {
 		console.log('WRONG ANSWER');
+		sec = sec - 15;
+		if (sec <= 0) {
+			endQuizText();
+		}
 		return false;
 	}
 }
-
-/* find a way to make sure the question is answered before going to the next one */
+function renderScreenTimer() {
+	timerElement.innerHTML = sec;
+	if (sec < 0) {
+		timerElement.innerHTML = 0;
+	}
+}
 
 function quizTimer() {
-	var sec = 15;
+	sec = 45;
 	var clock = setInterval(function () {
-		timerElement.innerHTML = sec;
+		renderScreenTimer();
 		sec--;
+		if (currentQuestionNumber > questionsArray.length) {
+			clearInterval(clock);
+		}
 		if (sec < 0) {
 			clearInterval(clock);
-			timerElement.innerHTML = 0;
 		}
 	}, 1000);
 }
 
-startButton.addEventListener('click', quizTimer);
+startButton.addEventListener('click', function () {
+	if (startButtonClicks === 0) {
+		quizTimer();
+		renderScreenTimer();
+		QuizOrder(currentQuestionNumber);
+		startButtonClicks++;
+	} else {
+	}
+});
 
 function addHighScores() {
 	var newHighScoreElement = document.createElement('li');
 	newHighScoreElement.textContent = prompt('enter initials');
 	highScoreListParent.appendChild(newHighScoreElement);
 }
-
-QuizOrder(currentQuestionNumber);
 
 shownOption1.addEventListener('click', function (event) {
 	event.preventDefault();
