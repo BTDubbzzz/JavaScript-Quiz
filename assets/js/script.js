@@ -53,6 +53,7 @@ function nextQuestion() {
 		currentQuestionNumber++;
 		QuizOrder(currentQuestionNumber);
 	} else {
+		currentQuestionNumber++;
 		endQuizText();
 	}
 }
@@ -72,8 +73,11 @@ function presentCurrentQuestion() {
 
 function endQuizText() {
 	if (sec > 0) {
+		renderScreenTimer();
 		shownQuestion.textContent = 'Quiz is Over, enter your high score';
 		var newScore = sec;
+		addHighScores();
+		console.log('newScore :>> ', newScore);
 	} else if (sec < 0) {
 		shownQuestion.textContent =
 			'You did not complete the quiz in time. Please refresh to try again.';
@@ -105,11 +109,13 @@ function renderScreenTimer() {
 }
 
 function quizTimer() {
-	sec = 45;
+	sec = 75;
 	var clock = setInterval(function () {
 		renderScreenTimer();
 		sec--;
-		if (currentQuestionNumber > questionsArray.length) {
+		console.log('currentQuestionNumber :>> ', currentQuestionNumber);
+		console.log('questionsArray.length :>> ', questionsArray.length);
+		if (currentQuestionNumber === questionsArray.length) {
 			clearInterval(clock);
 		}
 		if (sec < 0) {
@@ -119,7 +125,10 @@ function quizTimer() {
 }
 
 startButton.addEventListener('click', function () {
-	if (startButtonClicks === 0) {
+	if (
+		startButtonClicks === 0 ||
+		currentQuestionNumber === questionsArray.length
+	) {
 		quizTimer();
 		renderScreenTimer();
 		QuizOrder(currentQuestionNumber);
