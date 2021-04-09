@@ -78,7 +78,7 @@ function endQuizText() {
 		var newScore = sec;
 		addHighScores();
 		console.log('newScore :>> ', newScore);
-	} else if (sec < 0) {
+	} else if (sec <= 0) {
 		shownQuestion.textContent =
 			'You did not complete the quiz in time. Please refresh to try again.';
 	}
@@ -103,13 +103,10 @@ function isCurrentAnswerCorrect() {
 }
 function renderScreenTimer() {
 	timerElement.innerHTML = sec;
-	if (sec < 0) {
-		timerElement.innerHTML = 0;
-	}
 }
 
 function quizTimer() {
-	sec = 75;
+	sec = 5;
 	var clock = setInterval(function () {
 		renderScreenTimer();
 		sec--;
@@ -119,7 +116,9 @@ function quizTimer() {
 			clearInterval(clock);
 		}
 		if (sec < 0) {
+			timerElement.innerHTML = 0;
 			clearInterval(clock);
+			endQuizText();
 		}
 	}, 1000);
 }
