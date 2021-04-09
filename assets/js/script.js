@@ -43,8 +43,49 @@ var question4 = {
 	CHOICE4: '4d',
 	CORRECTANSWER: '4d',
 };
+var question5 = {
+	question: '5Q',
+	CHOICE1: '5a',
+	CHOICE2: '5b',
+	CHOICE3: '5c',
+	CHOICE4: '5d',
+	CORRECTANSWER: '5a',
+};
+var question6 = {
+	question: '6Q',
+	CHOICE1: '6a',
+	CHOICE2: '6b',
+	CHOICE3: '6c',
+	CHOICE4: '6d',
+	CORRECTANSWER: '6b',
+};
+var question7 = {
+	question: '7Q',
+	CHOICE1: '7a',
+	CHOICE2: '7b',
+	CHOICE3: '7c',
+	CHOICE4: '7d',
+	CORRECTANSWER: '7c',
+};
+var question8 = {
+	question: '8Q',
+	CHOICE1: '8a',
+	CHOICE2: '8b',
+	CHOICE3: '8c',
+	CHOICE4: '8d',
+	CORRECTANSWER: '8d',
+};
 
-var questionsArray = [question1, question2, question3, question4];
+var questionsArray = [
+	question1,
+	question2,
+	question3,
+	question4,
+	question5,
+	question6,
+	question7,
+	question8,
+];
 
 function nextQuestion() {
 	if (sec < 0) {
