@@ -10,70 +10,71 @@ var sec;
 var currentChosenOption = 0;
 var currentQuestionNumber = 0;
 var startButtonClicks = 0;
+var newScore;
 
 var question1 = {
-	question: '1Q',
-	CHOICE1: '1a',
-	CHOICE2: '1b',
-	CHOICE3: '1c',
-	CHOICE4: '1d',
-	CORRECTANSWER: '1a',
+	question: 'Question 1) Inside which element do we put the JavaScript source?',
+	CHOICE1: '<script>',
+	CHOICE2: '<scripting>',
+	CHOICE3: '<javascript>',
+	CHOICE4: '<js>',
+	CORRECTANSWER: '<script>',
 };
 var question2 = {
-	question: '2Q',
-	CHOICE1: '2a',
-	CHOICE2: '2b',
-	CHOICE3: '2c',
-	CHOICE4: '2d',
-	CORRECTANSWER: '2b',
+	question: 'Question 2) Where is the correct place to insert the JavaScript?',
+	CHOICE1: 'The <head> section',
+	CHOICE2: 'The beginning of the <body> section',
+	CHOICE3: 'The end of the <body> section',
+	CHOICE4: 'The <footer> section',
+	CORRECTANSWER: 'The end of the <body> section',
 };
 var question3 = {
-	question: '3Q',
-	CHOICE1: '3a',
-	CHOICE2: '3b',
-	CHOICE3: '3c',
-	CHOICE4: '3d',
-	CORRECTANSWER: '3c',
+	question: 'Question 3) How do you write \"Hello World\" in an alert box?',
+	CHOICE1: 'alertbox("Hello World");',
+	CHOICE2: 'msg("Hello World");',
+	CHOICE3: 'msgBox("Hello World");',
+	CHOICE4: 'alert("Hello World");',
+	CORRECTANSWER: 'alert("Hello World");',
 };
 var question4 = {
-	question: '4Q',
-	CHOICE1: '4a',
-	CHOICE2: '4b',
-	CHOICE3: '4c',
-	CHOICE4: '4d',
-	CORRECTANSWER: '4d',
+	question: 'Question 4) How do you initialize a function in JavaScript?',
+	CHOICE1: 'function:myFunction()',
+	CHOICE2: 'function = myFunction()',
+	CHOICE3: 'function myFunction()',
+	CHOICE4: 'function === myFunction()',
+	CORRECTANSWER: 'function myFunction()',
 };
 var question5 = {
-	question: '5Q',
-	CHOICE1: '5a',
-	CHOICE2: '5b',
-	CHOICE3: '5c',
-	CHOICE4: '5d',
-	CORRECTANSWER: '5a',
+	question: 'Question 5) How do you write an IF statement in JavaScript?',
+	CHOICE1: 'if i = 5 then',
+	CHOICE2: 'if (i == 5)',
+	CHOICE3: 'if i = 5',
+	CHOICE4: 'if i == 5 then',
+	CORRECTANSWER: 'if (i == 5)',
 };
 var question6 = {
-	question: '6Q',
-	CHOICE1: '6a',
-	CHOICE2: '6b',
-	CHOICE3: '6c',
-	CHOICE4: '6d',
-	CORRECTANSWER: '6b',
+	question: 'Question 6) JavaScript is the same as Java',
+	CHOICE1: 'True',
+	CHOICE2: 'False',
+	CHOICE3: '',
+	CHOICE4: '',
+	CORRECTANSWER: 'False',
 };
 var question7 = {
-	question: '7Q',
-	CHOICE1: '7a',
-	CHOICE2: '7b',
-	CHOICE3: '7c',
-	CHOICE4: '7d',
-	CORRECTANSWER: '7c',
+	question: 'Question 7) How do you declare a variable in JavaScript?',
+	CHOICE1: 'var carName;',
+	CHOICE2: 'var = carName;',
+	CHOICE3: 'var carName();',
+	CHOICE4: 'variable carName;',
+	CORRECTANSWER: 'var carName;',
 };
 var question8 = {
-	question: '8Q',
-	CHOICE1: '8a',
-	CHOICE2: '8b',
-	CHOICE3: '8c',
-	CHOICE4: '8d',
-	CORRECTANSWER: '8d',
+	question: 'Which is the correct statement to run code if "x" is equal to 2?',
+	CHOICE1: 'if (x 2)',
+	CHOICE2: 'if (x = 2)',
+	CHOICE3: 'if (x === 2)',
+	CHOICE4: 'if x == 2',
+	CORRECTANSWER: 'if (x === 2)',
 };
 
 var questionsArray = [
@@ -115,8 +116,8 @@ function presentCurrentQuestion() {
 function endQuizText() {
 	if (sec > 0) {
 		renderScreenTimer();
-		shownQuestion.textContent = 'Quiz is Over, enter your high score';
-		var newScore = sec;
+		shownQuestion.textContent = 'Quiz is Over, enter your high score. Then refresh the page to try again.';
+		newScore = sec;
 		addHighScores();
 		console.log('newScore :>> ', newScore);
 	} else if (sec <= 0) {
@@ -147,7 +148,7 @@ function renderScreenTimer() {
 }
 
 function quizTimer() {
-	sec = 5;
+	sec = 60;
 	var clock = setInterval(function () {
 		renderScreenTimer();
 		sec--;
@@ -179,7 +180,7 @@ startButton.addEventListener('click', function () {
 
 function addHighScores() {
 	var newHighScoreElement = document.createElement('li');
-	newHighScoreElement.textContent = prompt('enter initials');
+	newHighScoreElement.textContent = (prompt('Your score is ' + newScore + '. Please enter initials for the leaderboard')) + ': ' + newScore;
 	highScoreListParent.appendChild(newHighScoreElement);
 }
 
