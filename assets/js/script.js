@@ -13,9 +13,6 @@ var startButtonClicks = 0;
 var newScore;
 var highScoreArray = []
 
-
-
-
 highScoreArray = JSON.parse(localStorage.getItem('highScoreArray'))
 console.log(highScoreArray)
 if (highScoreArray) {
