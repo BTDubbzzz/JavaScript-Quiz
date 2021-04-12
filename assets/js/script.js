@@ -11,6 +11,20 @@ var currentChosenOption = 0;
 var currentQuestionNumber = 0;
 var startButtonClicks = 0;
 var newScore;
+var highScoreArray = []
+
+
+
+
+highScoreArray = JSON.parse(localStorage.getItem('highScoreArray'))
+console.log(highScoreArray)
+if (highScoreArray) {
+	for (i = 0; i < highScoreArray.length; i++) {
+		temp = document.createElement('li');
+		temp.textContent = highScoreArray[i];
+		highScoreListParent.appendChild(temp);
+	}
+}
 
 var question1 = {
 	question: 'Question 1) Inside which element do we put the JavaScript source?',
@@ -118,7 +132,7 @@ function endQuizText() {
 		renderScreenTimer();
 		shownQuestion.textContent = 'Quiz is Over, enter your high score. Then refresh the page to try again.';
 		newScore = sec;
-		addHighScores();
+		addHighScoresNew();
 		console.log('newScore :>> ', newScore);
 	} else if (sec <= 0) {
 		shownQuestion.textContent =
@@ -178,11 +192,19 @@ startButton.addEventListener('click', function () {
 	}
 });
 
-function addHighScores() {
-	var newHighScoreElement = document.createElement('li');
-	newHighScoreElement.textContent = (prompt('Your score is ' + newScore + '. Please enter initials for the leaderboard')) + ': ' + newScore;
-	highScoreListParent.appendChild(newHighScoreElement);
-}
+function addHighScoresNew() {
+	var newHighScore = (prompt('Your score is ' + newScore + '. Please enter initials for the leaderboard')) + ': ' + newScore;
+	console.log('highScoreArray ->> ' + highScoreArray)
+	if (highScoreArray === null) {
+		highScoreArray = []
+	}
+	highScoreArray.push(newHighScore)
+	localStorage.setItem('highScoreArray', JSON.stringify(highScoreArray))
+		temp = document.createElement('li');
+		temp.textContent = newHighScore
+		highScoreListParent.appendChild(temp);
+	}
+
 
 shownOption1.addEventListener('click', function (event) {
 	event.preventDefault();
